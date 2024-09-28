@@ -60,7 +60,7 @@ void PID::update(double input) {
         error_int = I_max;  
     // 积分控制，乘以积分系数
     I = ki * error_int;  
-    // 计算微分，当前误差与上一个误差之差
+    // 计算微分，当前误差与上一误差之差
     D = kd * (error_curt - error_prev);  
     // 更新误差值
     error_prev = error_curt;  
@@ -86,7 +86,7 @@ void PosPID::update(Point input) {
         error_int = I_max;  
     // 积分控制，乘以积分系数
     I = ki * error_int;  
-    // 计算微分，当前误差与上一个误差之差
+    // 计算微分，当前误差与上一误差之差
     D = kd * (error_curt - error_prev);  
     // 更新误差值
     error_prev = error_curt;  
@@ -109,7 +109,7 @@ void DirPID::update(double input) {
         error_int = I_max;  
     // 积分控制，乘以积分系数
     I = ki * error_int; 
-    // 计算微分，当前误差与上一个误差之差
+    // 计算微分，当前误差与上一误差之差
     D = kd * (error_curt - error_prev);  
     // 更新误差值
     error_prev = error_curt;  
