@@ -52,7 +52,18 @@ double PID::getOutput() { return output; }
 void PID::update(double input) {
     error_curt = target - input;  // calculate current error
     //TODO: calculate the contribution of P, I, D with kp, ki, kd
-
+    
+    P = kp * error_curt;  // 比例，基于当前误差计算
+    error_int += error_curt;  // 积分，累加当前误差
+    // 限制积分值在特定范围内
+    if (error_int > I_max) 
+        error_int = I_max;  
+    // 积分控制，乘以积分系数
+    I = ki * error_int;  
+    // 计算微分，当前误差与上一个误差之差
+    D = kd * (error_curt - error_prev);  
+    // 更新误差值
+    error_prev = error_curt;  
     
     if (abs(error_curt) <= error_tol) {  // Exit when staying in tolerated region and
                                         // maintaining a low enough speed
@@ -67,7 +78,18 @@ void PosPID::update(Point input) {
     Vector err = target_point - input;
     error_curt = err.mod();  // calculate current error
     //TODO: calculate the contribution of P, I, D with kp, ki, kd
-
+    
+    P = kp * error_curt;  // 比例，基于当前误差计算
+    error_int += error_curt;  // 积分，累加当前误差
+    // 限制积分值在特定范围内
+    if (error_int > I_max) 
+        error_int = I_max;  
+    // 积分控制，乘以积分系数
+    I = ki * error_int;  
+    // 计算微分，当前误差与上一个误差之差
+    D = kd * (error_curt - error_prev);  
+    // 更新误差值
+    error_prev = error_curt;  
     
     if (abs(error_curt) <= error_tol) {  // Exit when staying in tolerated region and
                                         // maintaining a low enough speed
@@ -79,7 +101,18 @@ void PosPID::update(Point input) {
 void DirPID::update(double input) {
     error_curt = degNormalize(target - input);  // calculate current error
     //TODO: calculate the contribution of P, I, D with kp, ki, kd
-
+    
+    P = kp * error_curt;  // 比例，基于当前误差计算
+    error_int += error_curt;  // 积分，累加当前误差
+    // 限制积分值在特定范围内
+    if (error_int > I_max) 
+        error_int = I_max;  
+    // 积分控制，乘以积分系数
+    I = ki * error_int; 
+    // 计算微分，当前误差与上一个误差之差
+    D = kd * (error_curt - error_prev);  
+    // 更新误差值
+    error_prev = error_curt;  
     
     if (abs(error_curt) <= error_tol) {  // Exit when staying in tolerated region and
                                         // maintaining a low enough speed

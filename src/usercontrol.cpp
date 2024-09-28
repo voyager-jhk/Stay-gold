@@ -89,6 +89,16 @@ void userControl() {
 
             // 其余组件控制
             intakerControl();
+            // 电机控制映射
+            if (press_A) {
+                press_A = false;  // 清除
+                motor_base_new.spin(forward);  // 电机正转
+            } else if (press_B) {
+                press_B = false;  // 清除
+                motor_base_new.spin(reverse);  // 电机反转
+            } else {
+                motor_base_new.stop();  // 停止电机
+            }
         }
 
         this_thread::sleep_for(kRefreshTime);
